@@ -6,7 +6,7 @@ import { Url } from "../models/url.model";
 import { User } from "../models/user.model";
 
 const createShortUrlSchema = z.object({
-  long_url: z.string().url("Invalid URL format"),
+  long_url: z.url("Invalid URL format"),
 });
 
 const shortUrlParamSchema = z.object({
@@ -73,7 +73,7 @@ export const redirectToLongUrl = asyncHandler(
     urlEntry.clicks += 1;
     await urlEntry.save();
 
-    res.redirect(urlEntry.long_url);
+    res.redirect(302, urlEntry.long_url);
   }
 );
 
